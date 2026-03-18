@@ -1,0 +1,31 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+out/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Project-specific Maven module output
+mods-mvn/
+
+# Project-specific libraries
+libs/
+
+# Operating System
+.DS_Store
+Thumbs.db
