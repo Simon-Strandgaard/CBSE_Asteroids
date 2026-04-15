@@ -1,3 +1,3 @@
 module Core {
-    exports dk.sdu.cbse;
+    requires Common;
 }
