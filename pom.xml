@@ -218,5 +218,6 @@
     <module>CommonBullet</module>
     <module>Bullet</module>
       <module>Enemy</module>
+      <module>Asteroid</module>
   </modules>
 </project>
