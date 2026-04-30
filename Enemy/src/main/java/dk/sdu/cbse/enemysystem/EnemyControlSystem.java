@@ -30,6 +30,14 @@ public class EnemyControlSystem implements IEntityProcessingService {
             if (shoot) {
                 world.addEntity(getBulletSPI().createBullet(enemy,gameData));
             }
+            if (enemy.isHit()) {
+                enemy.setLife(enemy.getLife()-1);
+                enemy.setHit(false);
+            }
+
+            if (enemy.getLife() == 0) {
+                world.removeEntity(enemy);
+            }
         }
     }
 

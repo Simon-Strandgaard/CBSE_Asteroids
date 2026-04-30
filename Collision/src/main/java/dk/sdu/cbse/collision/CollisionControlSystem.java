@@ -17,8 +17,8 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
                 float dy = (float) (entity1.getY() - entity2.getY());
                 float distance = (float) Math.sqrt(dx * dx + dy * dy);
                 if (distance < entity1.getRadius() + entity2.getRadius()){
-                    world.removeEntity(entity1);
-                    world.removeEntity(entity2);
+                    entity1.setHit(true);
+                    entity2.setHit(true);
                 }
             }
         }

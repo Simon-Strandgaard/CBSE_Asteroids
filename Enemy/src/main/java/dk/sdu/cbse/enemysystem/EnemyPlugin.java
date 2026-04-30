@@ -15,17 +15,18 @@ public class EnemyPlugin implements IGamePluginService {
     /// @param world contains all the entities in the game.
     @Override
     public void start(GameData gameData, World world) {
-        enemy = createEnemy(gameData, world);
+        enemy = createEnemy(gameData);
 
         world.addEntity(enemy);
     }
 
-    private Entity createEnemy(GameData gameData, World world) {
+    private Entity createEnemy(GameData gameData) {
         Entity enemyShip = new Enemy();
         enemyShip.setPolygonCoordinates(-5,-5,10,0,-5,5);
         enemyShip.setX(gameData.getDisplayWidth()/4.0);
         enemyShip.setY(gameData.getDisplayHeight()/4.0);
         enemyShip.setRadius(8);
+        enemyShip.setLife(5);
         return enemyShip;
     }
 
