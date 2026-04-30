@@ -13,11 +13,11 @@ public class BulletPlugin implements IGamePluginService {
 
     }
 
-    /**
+    /**Post-condition:
      * Stops the bullet plugin by removing all bullet entities from the game world.
      * This method iterates through all entities in the world and removes any entity
      * that is an instance of the {@code Bullet} class.
-     *
+     * Pre-condition: needs access to the world-object to remove all instances of bullet.
      * @param gameData The game data instance containing the current state of the game.
      * @param world    The game world containing all entities. Bullet entities will
      *                 be removed from this world.

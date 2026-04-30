@@ -10,11 +10,12 @@ import dk.sdu.cbse.common.services.IEntityProcessingService;
 public class BulletControlSystem implements IEntityProcessingService, BulletSPI {
 
     /**
+     * Postconditions:
      * Processes all bullet entities in the given world. The method performs three main actions for each bullet:
      * - Removes the bullet if it has collided or been hit.
      * - Removes the bullet if it is out of bounds based on the game's display dimensions.
      * - Updates the position of the bullet based on its current rotation and movement specifications.
-     *
+     * Preconditions: needs both params for dimensitons of window for creation of bullet entity and for entities in world
      * @param gameData Contains information about the game state, including display dimensions and input data.
      * @param world    The game world containing all entities, including bullets to be processed.
      */

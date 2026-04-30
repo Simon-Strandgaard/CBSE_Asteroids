@@ -10,9 +10,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class AsteroidControlSystem implements IEntityProcessingService {
 
     /**
+     * Postconditions:
      * Processes the game logic for asteroids within the game world.
      * Handles updating asteroid positions, managing collisions, and
      * adding new asteroids to the world with a certain probability.
+     * Preconditions: both params need to be initalized with dimensions and entities for asteroid to process
      * @param gameData the game data containing information such as display dimensions
      * @param world the game world containing all entities to be processed
      */

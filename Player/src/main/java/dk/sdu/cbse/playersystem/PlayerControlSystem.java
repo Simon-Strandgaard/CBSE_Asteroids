@@ -16,10 +16,11 @@ import static java.util.stream.Collectors.toList;
 public class PlayerControlSystem implements IEntityProcessingService {
 
     /**
+     * Post-conditions:
      * Processes the game logic for player entities within the game world.
      * Handles player input for movement, ensures the player remains within display bounds,
      * manages player life when hit, and spawns bullets on specific input.
-     *
+     * Pre-conditions: needs gamedate to be within bounds of window and world to spawn bullet.
      * @param gameData the game data containing current state, such as input keys and display dimensions
      * @param world the game world containing all entities and their current states
      */
