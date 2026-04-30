@@ -24,7 +24,7 @@ public class AsteroidControlSystem implements IEntityProcessingService {
             updateAsteroidPosition(asteroid);
         }
 
-        if (ThreadLocalRandom.current().nextInt(1,101) == 1){
+        if (ThreadLocalRandom.current().nextInt(100) == 0){
             Entity asteroid = createAsteroid(gameData);
             world.addEntity(asteroid);
         }
@@ -46,10 +46,14 @@ public class AsteroidControlSystem implements IEntityProcessingService {
 
     private Entity createRightAsteroid(Entity asteroid) {
         Entity childAsteroid = new Asteroid();
+
+        double dy = Math.sin(Math.toRadians(asteroid.getRotation()));
+        double dx = Math.cos(Math.toRadians(asteroid.getRotation()));
+        childAsteroid.setX(asteroid.getX() - dx * 6);
+        childAsteroid.setY(asteroid.getY() + dy * 6);
+
         childAsteroid.setPolygonCoordinates(-5,-5,5,-5,5,5,-5,5);
-        childAsteroid.setX(asteroid.getX() + 10);
-        childAsteroid.setY(asteroid.getY() - 10);
-        childAsteroid.setRotation(asteroid.getRotation());
+        childAsteroid.setRotation(asteroid.getRotation() + ThreadLocalRandom.current().nextDouble(-5,6));
         childAsteroid.setRadius(5);
         childAsteroid.setLife(1);
 
@@ -58,10 +62,14 @@ public class AsteroidControlSystem implements IEntityProcessingService {
 
     private static Entity createLeftAsteroid(Entity asteroid) {
         Entity childAsteroid = new Asteroid();
+
+        double dy = Math.sin(Math.toRadians(asteroid.getRotation()));
+        double dx = Math.cos(Math.toRadians(asteroid.getRotation()));
+        childAsteroid.setX(asteroid.getX() + dx * 6);
+        childAsteroid.setY(asteroid.getY() - dy * 6);
+
         childAsteroid.setPolygonCoordinates(-5,-5,5,-5,5,5,-5,5);
-        childAsteroid.setX(asteroid.getX() - 10);
-        childAsteroid.setY(asteroid.getY() + 10);
-        childAsteroid.setRotation(asteroid.getRotation());
+        childAsteroid.setRotation(asteroid.getRotation() + ThreadLocalRandom.current().nextDouble(-5,6));
         childAsteroid.setRadius(5);
         childAsteroid.setLife(1);
 
@@ -77,10 +85,39 @@ public class AsteroidControlSystem implements IEntityProcessingService {
 
     private static Entity createAsteroid(GameData gameData) {
         Entity asteroid = new Asteroid();
+
+        double width = gameData.getDisplayWidth();
+        double height = gameData.getDisplayHeight();
+        double coordinateX;
+        double coordinateY;
+        double rotation;
+        double entryPoint = ThreadLocalRandom
+                .current()
+                .nextDouble(width*2+ height*2);
+
+        if (entryPoint < width) {
+            coordinateX = entryPoint;
+            coordinateY = 0;
+            rotation = ThreadLocalRandom.current().nextDouble(1,180);
+        } else if (entryPoint < width + height) {
+            coordinateX = width;
+            coordinateY = entryPoint - width;
+            rotation = ThreadLocalRandom.current().nextDouble(91,270);
+        } else if (entryPoint < width*2 + height) {
+            coordinateX = entryPoint - width - height;
+            coordinateY = height;
+            rotation = ThreadLocalRandom.current().nextDouble(181,360);
+        } else{
+            coordinateX = 0;
+            coordinateY = entryPoint - width * 2 - height;
+            rotation = ThreadLocalRandom.current().nextDouble(-89,90);
+        }
+
+        asteroid.setX(coordinateX);
+        asteroid.setY(coordinateY);
+        asteroid.setRotation(rotation);
+
         asteroid.setPolygonCoordinates(-10,-10,10,-10,10,10,-10,10);
-        asteroid.setX(gameData.getDisplayWidth() - 30);
-        asteroid.setY(gameData.getDisplayHeight() - 30);
-        asteroid.setRotation(270.0-45.0);
         asteroid.setRadius(10);
         asteroid.setLife(2);
         return asteroid;
