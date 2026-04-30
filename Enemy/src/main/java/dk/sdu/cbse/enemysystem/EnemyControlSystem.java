@@ -41,6 +41,14 @@ public class EnemyControlSystem implements IEntityProcessingService {
         }
     }
 
+    /**
+     * Retrieves the first available implementation of the BulletSPI interface using the ServiceLoader.
+     * If no implementation is found, an exception is thrown.
+     * precondition: there needs to be at least one implementation of a bulletSPI for this to work
+     * postcondition: has now provided the first bulletSPI it found to where it is needed
+     * @return an instance of BulletSPI representing the first loaded service implementation
+     * @throws java.util.NoSuchElementException if no implementation of BulletSPI is found
+     */
     private BulletSPI getBulletSPI() {
         return ServiceLoader.load(BulletSPI.class).findFirst().orElseThrow();
     }

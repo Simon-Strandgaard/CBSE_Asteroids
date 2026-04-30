@@ -10,11 +10,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class AsteroidControlSystem implements IEntityProcessingService {
 
     /**
-     * Updates the position of all asteroid entities in the game world based on their rotation
-     * and randomly generates a new asteroid to add to the world with a small probability.
-     * precondition:
-     * @param gameData the game data containing display details and configurations
-     * @param world the game world containing all entities, including asteroids
+     * Processes the game logic for asteroids within the game world.
+     * Handles updating asteroid positions, managing collisions, and
+     * adding new asteroids to the world with a certain probability.
+     * @param gameData the game data containing information such as display dimensions
+     * @param world the game world containing all entities to be processed
      */
     @Override
     public void process(GameData gameData, World world) {
