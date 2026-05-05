@@ -1,6 +1,7 @@
 package dk.sdu.cbse.playersystem;
 
 import dk.sdu.cbse.common.data.Entity;
+import dk.sdu.cbse.common.data.EntityType;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IGamePluginService;
@@ -35,6 +36,7 @@ public class PlayerPlugin implements IGamePluginService {
         playerShip.setRadius(8);
         playerShip.setLife(5);
         playerShip.setHit(false);
+        playerShip.setType(EntityType.PLAYER);
         return playerShip;
     }
 

@@ -1,6 +1,7 @@
 package dk.sdu.cbse.asteroid;
 
 import dk.sdu.cbse.common.data.Entity;
+import dk.sdu.cbse.common.data.EntityType;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
@@ -26,7 +27,7 @@ public class AsteroidControlSystem implements IEntityProcessingService {
             updateAsteroidPosition(asteroid);
         }
 
-        if (ThreadLocalRandom.current().nextInt(100) == 0){
+        if (ThreadLocalRandom.current().nextInt(50) == 0){
             Entity asteroid = createAsteroid(gameData);
             world.addEntity(asteroid);
         }
@@ -58,6 +59,7 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         childAsteroid.setRotation(asteroid.getRotation() + ThreadLocalRandom.current().nextDouble(-5,6));
         childAsteroid.setRadius(5);
         childAsteroid.setLife(1);
+        childAsteroid.setType(EntityType.ASTEROID);
 
         return childAsteroid;
     }
@@ -74,6 +76,7 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         childAsteroid.setRotation(asteroid.getRotation() + ThreadLocalRandom.current().nextDouble(-5,6));
         childAsteroid.setRadius(5);
         childAsteroid.setLife(1);
+        childAsteroid.setType(EntityType.ASTEROID);
 
         return childAsteroid;
     }
@@ -122,6 +125,8 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         asteroid.setPolygonCoordinates(-10,-10,10,-10,10,10,-10,10);
         asteroid.setRadius(10);
         asteroid.setLife(2);
+        asteroid.setType(EntityType.ASTEROID);
+
         return asteroid;
     }
 }

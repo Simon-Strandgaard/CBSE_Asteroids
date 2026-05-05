@@ -14,6 +14,7 @@ public class Entity implements Serializable {
     private float radius;
     private boolean isHit;
     private int life;
+    private Enum<EntityType> type;
             
 
     public String getID() {
@@ -70,4 +71,12 @@ public class Entity implements Serializable {
     public int getLife() {return life;}
 
     public void setLife(int life) {this.life = life;}
+
+    public Enum<EntityType> getType() {
+        return type;
+    }
+
+    public void setType(Enum<EntityType> type) {
+        this.type = type;
+    }
 }

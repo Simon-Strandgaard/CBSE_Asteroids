@@ -2,6 +2,7 @@ package dk.sdu.cbse.collision;
 
 
 import dk.sdu.cbse.common.data.Entity;
+import dk.sdu.cbse.common.data.EntityType;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
@@ -25,10 +26,25 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
                 float dy = (float) (entity1.getY() - entity2.getY());
                 float distance = (float) Math.sqrt(dx * dx + dy * dy);
                 if (distance < entity1.getRadius() + entity2.getRadius()){
-                    entity1.setHit(true);
-                    entity2.setHit(true);
+
+                    if (isPair(entity1,entity2, EntityType.ENEMY, EntityType.ASTEROID) ||
+                    isPair(entity1,entity2, EntityType.PLAYER, EntityType.ASTEROID)) {
+                        if(entity1.getType() == EntityType.PLAYER ||
+                        entity1.getType() == EntityType.ENEMY) {
+                            entity1.setHit(true);
+                        }
+                    }
+                    else {
+                        entity1.setHit(true);
+                        entity2.setHit(true);
+                    }
                 }
             }
         }
+    }
+
+    private boolean isPair(Entity a, Entity b, EntityType t1, EntityType t2) {
+        return (a.getType() == t1 && b.getType() == t2)
+                || (a.getType() == t2 && b.getType() == t1);
     }
 }

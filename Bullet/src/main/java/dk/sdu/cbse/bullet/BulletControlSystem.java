@@ -3,6 +3,7 @@ package dk.sdu.cbse.bullet;
 import dk.sdu.cbse.common.bullet.Bullet;
 import dk.sdu.cbse.common.bullet.BulletSPI;
 import dk.sdu.cbse.common.data.Entity;
+import dk.sdu.cbse.common.data.EntityType;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
@@ -72,6 +73,7 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
         bullet.setY(shooter.getY() + changeY * 10);
         bullet.setRotation(shooter.getRotation());
         bullet.setRadius(1);
+        bullet.setType(EntityType.BULLET);
         return bullet;
     }
 }

@@ -64,6 +64,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
         if (player.isHit()) {
             player.setLife(player.getLife()-1);
+            player.setHit(false);
         }
 
         if (player.getLife() == 0) {
