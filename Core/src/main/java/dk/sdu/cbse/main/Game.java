@@ -15,19 +15,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-/**
- *
- * @author jcs
- */
 class Game {
 
     private final GameData gameData = new GameData();
@@ -80,8 +74,7 @@ class Game {
 
         });
 
-        // Lookup all Game Plugins using ServiceLoader
-        for (IGamePluginService iGamePlugin : getGamePluginServices()) {
+        for (IGamePluginService iGamePlugin : gamePluginServices) {
             iGamePlugin.start(gameData, world);
         }
         for (Entity entity : world.getEntities()) {
@@ -107,10 +100,10 @@ class Game {
     }
 
     private void update() {
-        for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
+        for (IEntityProcessingService entityProcessorService : entityProcessingServiceList) {
             entityProcessorService.process(gameData, world);
         }
-        for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
+        for (IPostEntityProcessingService postEntityProcessorService : postEntityProcessingServices) {
             postEntityProcessorService.process(gameData, world);
         }
     }
@@ -137,17 +130,4 @@ class Game {
         }
 
     }
-
-    public List<IGamePluginService> getGamePluginServices() {
-        return gamePluginServices;
-    }
-
-    public List<IEntityProcessingService> getEntityProcessingServices() {
-        return entityProcessingServiceList;
-    }
-
-    public List<IPostEntityProcessingService> getPostEntityProcessingServices() {
-        return postEntityProcessingServices;
-    }
-
 }
