@@ -3,7 +3,7 @@ module Core {
 
     requires javafx.graphics;
     requires org.apache.commons.logging;
-    opens dk.sdu.cbse.main to javafx.graphics,spring.core;
+    opens dk.sdu.cbse.main to javafx.graphics;
     uses dk.sdu.cbse.common.services.IGamePluginService;
     uses dk.sdu.cbse.common.services.IEntityProcessingService;
     uses dk.sdu.cbse.common.services.IPostEntityProcessingService;
