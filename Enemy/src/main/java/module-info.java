@@ -1,12 +1,6 @@
-import dk.sdu.cbse.common.bullet.BulletSPI;
-import dk.sdu.cbse.common.services.IEntityProcessingService;
-import dk.sdu.cbse.common.services.IGamePluginService;
-
 module Enemy {
+    exports dk.sdu.cbse.enemysystem;
     requires Common;
     requires CommonBullet;
-    uses BulletSPI;
-
-    provides IGamePluginService with dk.sdu.cbse.enemysystem.EnemyPlugin;
-    provides IEntityProcessingService with dk.sdu.cbse.enemysystem.EnemyControlSystem;
+    requires Bullet;
 }

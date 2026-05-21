@@ -1,19 +1,16 @@
 package dk.sdu.cbse.playersystem;
 
-import dk.sdu.cbse.common.bullet.BulletSPI;
+import dk.sdu.cbse.bullet.BulletControlSystem;
 import dk.sdu.cbse.common.data.Entity;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.GameKeys;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
 
-import java.util.Collection;
-import java.util.ServiceLoader;
-
-import static java.util.stream.Collectors.toList;
-
 
 public class PlayerControlSystem implements IEntityProcessingService {
+
+    BulletControlSystem bulletControlSystem = new BulletControlSystem();
 
     /**
      * Post-conditions:
@@ -40,10 +37,8 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 player.setX(player.getX() + changeX);
                 player.setY(player.getY() + changeY);
             }
-            if(gameData.getKeys().isDown(GameKeys.SPACE)) {                
-                getBulletSPIs().stream().findFirst().ifPresent(
-                        spi -> {world.addEntity(spi.createBullet(player, gameData));}
-                );
+            if(gameData.getKeys().isDown(GameKeys.SPACE)) {
+                world.addEntity(bulletControlSystem.createBullet(player,gameData));
             }
             
         if (player.getX() < 0) {
@@ -72,9 +67,5 @@ public class PlayerControlSystem implements IEntityProcessingService {
         }
 
         }
-    }
-
-    private Collection<? extends BulletSPI> getBulletSPIs() {
-        return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }
