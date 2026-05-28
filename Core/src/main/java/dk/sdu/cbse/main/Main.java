@@ -22,11 +22,14 @@ public class Main extends Application {
     @Override
     public void start(Stage window) throws Exception {
 
-        List<IEntityProcessingService> processingServices = ServiceLoader.load(IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-        List<IPostEntityProcessingService> postProcessingServices = ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-        List<IGamePluginService> gamePluginServices = ServiceLoader.load(IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        ModuleScanner moduleScanner = new ModuleScanner();
+        moduleScanner.reloadLayers();
 
-        Game game = new Game( gamePluginServices, processingServices, postProcessingServices);
+        List<IEntityProcessingService> processingServices = moduleScanner.getActiveServices();
+        List<IPostEntityProcessingService> postProcessingServices = moduleScanner.getActivePostServices();
+        List<IGamePluginService> gamePluginServices = moduleScanner.getActivePlugins();
+
+        Game game = new Game( gamePluginServices, processingServices, postProcessingServices, moduleScanner);
         game.start(window);
         game.render();
 

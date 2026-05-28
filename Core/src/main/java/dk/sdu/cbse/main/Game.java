@@ -28,14 +28,16 @@ class Game {
     private final World world = new World();
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
     private final Pane gameWindow = new Pane();
-    private final List<IGamePluginService> gamePluginServices;
-    private final List<IEntityProcessingService> entityProcessingServiceList;
-    private final List<IPostEntityProcessingService> postEntityProcessingServices;
+    private List<IGamePluginService> gamePluginServices;
+    private List<IEntityProcessingService> entityProcessingServiceList;
+    private List<IPostEntityProcessingService> postEntityProcessingServices;
+    private final ModuleScanner moduleScanner;
 
-    Game(List<IGamePluginService> gamePluginServices, List<IEntityProcessingService> entityProcessingServiceList, List<IPostEntityProcessingService> postEntityProcessingServices) {
+    Game(List<IGamePluginService> gamePluginServices, List<IEntityProcessingService> entityProcessingServiceList, List<IPostEntityProcessingService> postEntityProcessingServices, ModuleScanner moduleScanner) {
         this.gamePluginServices = gamePluginServices;
         this.entityProcessingServiceList = entityProcessingServiceList;
         this.postEntityProcessingServices = postEntityProcessingServices;
+        this.moduleScanner = moduleScanner;
     }
 
     public void start(Stage window) throws Exception {
@@ -70,6 +72,24 @@ class Game {
             }
             if (event.getCode().equals(KeyCode.SPACE)) {
                 gameData.getKeys().setKey(GameKeys.SPACE, false);
+            }
+            if (event.getCode().equals(KeyCode.R)) {
+                for (IGamePluginService plugins : gamePluginServices) {
+                    plugins.stop(gameData,world);
+                }
+
+                polygons.clear();
+                gameWindow.getChildren().removeIf(node -> node instanceof Polygon);
+
+                moduleScanner.reloadLayers();
+
+                gamePluginServices = moduleScanner.getActivePlugins();
+                entityProcessingServiceList = moduleScanner.getActiveServices();
+                postEntityProcessingServices = moduleScanner.getActivePostServices();
+
+                for (IGamePluginService plugins : gamePluginServices) {
+                    plugins.start(gameData,world);
+                }
             }
 
         });
