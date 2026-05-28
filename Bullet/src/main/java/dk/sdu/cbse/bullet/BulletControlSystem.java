@@ -7,7 +7,9 @@ import dk.sdu.cbse.common.data.EntityType;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BulletControlSystem implements IEntityProcessingService, BulletSPI {
 
     /**

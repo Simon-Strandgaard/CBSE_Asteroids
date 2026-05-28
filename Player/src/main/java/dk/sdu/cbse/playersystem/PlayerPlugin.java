@@ -5,13 +5,12 @@ import dk.sdu.cbse.common.data.EntityType;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IGamePluginService;
+import org.springframework.stereotype.Component;
+
+@Component
 public class PlayerPlugin implements IGamePluginService {
 
     private Entity player;
-
-    public PlayerPlugin() {
-    }
-
     /**
      * Post-conditions: a player exists after being called
      * Initializes the player plugin by creating and adding a player entity to the game world.

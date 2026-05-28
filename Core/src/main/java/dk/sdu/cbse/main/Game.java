@@ -22,12 +22,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
-/**
- *
- * @author jcs
- */
+@Component
 class Game {
 
     private final GameData gameData = new GameData();

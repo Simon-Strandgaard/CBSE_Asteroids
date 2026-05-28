@@ -5,10 +5,11 @@ import dk.sdu.cbse.common.data.Entity;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
+import org.springframework.stereotype.Component;
 
 import java.util.ServiceLoader;
 import java.util.concurrent.ThreadLocalRandom;
-
+@Component
 public class EnemyControlSystem implements IEntityProcessingService {
     /**
      * This method gets called every tick for the enemy to move and shoot
