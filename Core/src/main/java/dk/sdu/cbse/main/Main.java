@@ -15,9 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage window) throws Exception {
         
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        ctx.scan("dk.sdu.cbse");
-        ctx.refresh();
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ModuleConfig.class);
 
         for (String beanName : ctx.getBeanDefinitionNames()) {
             System.out.println(beanName);
