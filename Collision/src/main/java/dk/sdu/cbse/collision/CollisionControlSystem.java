@@ -7,9 +7,14 @@ import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 @Component
 public class CollisionControlSystem implements IPostEntityProcessingService {
+
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final String url = "http://localhost:8080/score/add";
+
     /**
      * Postconditions:
      * Processes the game world to determine collisions between entities. If two entities
@@ -39,6 +44,10 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
                     else {
                         entity1.setHit(true);
                         entity2.setHit(true);
+                        if (isPair(entity1,entity2,EntityType.ASTEROID,EntityType.BULLET)){
+                            int points = 100;
+                            restTemplate.postForObject(url, String.valueOf(points), Void.class);
+                        }
                     }
                 }
             }

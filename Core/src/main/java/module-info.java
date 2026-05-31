@@ -5,7 +5,7 @@ module Core {
     requires javafx.graphics;
     requires spring.context;
     requires spring.beans;
-    requires org.apache.commons.logging;
+    requires spring.web;
     exports dk.sdu.cbse.main;
     opens dk.sdu.cbse.main to javafx.graphics,spring.core,spring.beans, spring.context;
     uses dk.sdu.cbse.common.services.IGamePluginService;
