@@ -6,6 +6,7 @@ module Collision {
     requires spring.web;
     requires spring.beans;
     requires spring.context;
+    requires com.fasterxml.jackson.databind;
 
     provides IPostEntityProcessingService with CollisionControlSystem;
 

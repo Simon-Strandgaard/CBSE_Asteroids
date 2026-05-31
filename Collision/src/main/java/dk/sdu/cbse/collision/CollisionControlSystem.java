@@ -6,7 +6,11 @@ import dk.sdu.cbse.common.data.EntityType;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Component
@@ -46,7 +50,14 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
                         entity2.setHit(true);
                         if (isPair(entity1,entity2,EntityType.ASTEROID,EntityType.BULLET)){
                             int points = 100;
-                            restTemplate.postForObject(url, String.valueOf(points), Void.class);
+                            try {
+                                HttpHeaders headers = new HttpHeaders();
+                                headers.setContentType(MediaType.APPLICATION_JSON);
+                                HttpEntity<Integer> request = new HttpEntity<>(points, headers);
+                                restTemplate.postForObject(url, request, String.class);
+                            } catch (RestClientException e) {
+                                System.err.println("Scoring service unavailable " + e.getMessage());
+                            }
                         }
                     }
                 }
@@ -55,7 +66,6 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
     }
 
     private boolean isPair(Entity a, Entity b, EntityType t1, EntityType t2) {
-        return (a.getType() == t1 && b.getType() == t2)
-                || (a.getType() == t2 && b.getType() == t1);
+        return (a.getType() == t1 && b.getType() == t2) || (a.getType() == t2 && b.getType() == t1);
     }
 }
