@@ -15,6 +15,8 @@ import static java.util.stream.Collectors.toList;
 
 public class PlayerControlSystem implements IEntityProcessingService {
 
+    Collection<? extends BulletSPI> BulletSPIS = ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
     /**
      * Post-conditions:
      * Processes the game logic for player entities within the game world.
@@ -41,7 +43,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 player.setY(player.getY() + changeY);
             }
             if(gameData.getKeys().isDown(GameKeys.SPACE)) {                
-                getBulletSPIs().stream().findFirst().ifPresent(
+                BulletSPIS.stream().findFirst().ifPresent(
                         spi -> {world.addEntity(spi.createBullet(player, gameData));}
                 );
             }
@@ -72,9 +74,5 @@ public class PlayerControlSystem implements IEntityProcessingService {
         }
 
         }
-    }
-
-    private Collection<? extends BulletSPI> getBulletSPIs() {
-        return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }

@@ -6,8 +6,11 @@ import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
 
+import java.util.Collection;
 import java.util.ServiceLoader;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static java.util.stream.Collectors.toList;
 
 public class EnemyControlSystem implements IEntityProcessingService {
     /**
@@ -20,6 +23,8 @@ public class EnemyControlSystem implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
 
+        Collection<? extends BulletSPI> BulletSPIS = ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
         for (Entity enemy : world.getEntities(Enemy.class)){
             int moveX = ThreadLocalRandom.current().nextInt(-2,3);
             int moveY = ThreadLocalRandom.current().nextInt(-2,3);
@@ -28,7 +33,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
             enemy.setX(enemy.getX() + moveX);
             enemy.setY(enemy.getY() + moveY);
             if (shoot) {
-                world.addEntity(getBulletSPI().createBullet(enemy,gameData));
+                BulletSPIS.stream().findFirst().ifPresent(spi -> world.addEntity(spi.createBullet(enemy,gameData)));
             }
             if (enemy.isHit()) {
                 enemy.setLife(enemy.getLife()-1);
