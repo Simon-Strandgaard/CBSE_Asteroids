@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.util.stream.Collectors.toList;
 
 public class EnemyControlSystem implements IEntityProcessingService {
+
     /**
      * This method gets called every tick for the enemy to move and shoot
      * precondition: gameData and world cannot be null since no game and not entity would exist
@@ -23,6 +24,14 @@ public class EnemyControlSystem implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
 
+        /**
+         * Retrieves the first available implementation of the BulletSPI interface using the ServiceLoader.
+         * If no implementation is found, an exception is thrown.
+         * precondition: there needs to be at least one implementation of a bulletSPI for this to work
+         * postcondition: has now provided the first bulletSPI it found to where it is needed
+         * @return an instance of BulletSPI representing the first loaded service implementation
+         * @throws java.util.NoSuchElementException if no implementation of BulletSPI is found
+         */
         Collection<? extends BulletSPI> BulletSPIS = ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
 
         for (Entity enemy : world.getEntities(Enemy.class)){
@@ -44,17 +53,5 @@ public class EnemyControlSystem implements IEntityProcessingService {
                 world.removeEntity(enemy);
             }
         }
-    }
-
-    /**
-     * Retrieves the first available implementation of the BulletSPI interface using the ServiceLoader.
-     * If no implementation is found, an exception is thrown.
-     * precondition: there needs to be at least one implementation of a bulletSPI for this to work
-     * postcondition: has now provided the first bulletSPI it found to where it is needed
-     * @return an instance of BulletSPI representing the first loaded service implementation
-     * @throws java.util.NoSuchElementException if no implementation of BulletSPI is found
-     */
-    private BulletSPI getBulletSPI() {
-        return ServiceLoader.load(BulletSPI.class).findFirst().orElseThrow();
     }
 }
