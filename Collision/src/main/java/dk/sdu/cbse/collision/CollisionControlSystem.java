@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.CompletableFuture;
+
 @Component
 public class CollisionControlSystem implements IPostEntityProcessingService {
 
@@ -50,14 +52,17 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
                         entity2.setHit(true);
                         if (isPair(entity1,entity2,EntityType.ASTEROID,EntityType.BULLET)){
                             int points = 100;
-                            try {
-                                HttpHeaders headers = new HttpHeaders();
-                                headers.setContentType(MediaType.APPLICATION_JSON);
-                                HttpEntity<Integer> request = new HttpEntity<>(points, headers);
-                                restTemplate.postForObject(url, request, String.class);
-                            } catch (RestClientException e) {
-                                System.err.println("Scoring service unavailable " + e.getMessage());
-                            }
+
+                            CompletableFuture.runAsync( () -> {
+                                try {
+                                    HttpHeaders headers = new HttpHeaders();
+                                    headers.setContentType(MediaType.APPLICATION_JSON);
+                                    HttpEntity<Integer> request = new HttpEntity<>(points, headers);
+                                    restTemplate.postForObject(url, request, String.class);
+                                } catch (RestClientException e) {
+                                    System.err.println("Scoring service unavailable " + e.getMessage());
+                                }
+                            });
                         }
                     }
                 }
