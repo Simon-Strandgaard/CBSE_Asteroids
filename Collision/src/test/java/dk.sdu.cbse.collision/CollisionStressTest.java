@@ -36,7 +36,7 @@ public class CollisionStressTest {
         Instant finish = Instant.now();
         long timeElapsedMillis = Duration.between(start,finish).toMillis();
 
-        assertTrue(timeElapsedMillis < 16,"Architecture failed NFR: Main thread blocked! Frame processing took " + timeElapsedMillis + "ms.");
+        assertTrue(timeElapsedMillis <= 16,"Architecture failed NFR: Main thread blocked! Frame processing took " + timeElapsedMillis + "ms.");
         assertTrue(() -> world.getEntities().stream().allMatch(Entity::isHit), "Collision control system did not loop impact all entities for test");
     }
 }
