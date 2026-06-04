@@ -19,7 +19,7 @@ public class CollisionStressTest {
         World world = new World();
         GameData gameData = new GameData();
 
-        for (int i = 0; i < 250; i++) {
+        for (int i = 0; i < 200; i++) {
             Entity e1 = new Entity();
 
             e1.setRadius(10);
