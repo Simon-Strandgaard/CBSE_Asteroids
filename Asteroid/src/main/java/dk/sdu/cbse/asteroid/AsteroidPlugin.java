@@ -8,16 +8,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AsteroidPlugin implements IGamePluginService {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start(GameData gameData, World world) {
     }
 
     /**
-     * This method removes all asteroids from the world
-     * precondition: needs to have a world to remove entities from
-     * postcondition: the world object no longer contains asteroid entities.
-     * @param gameData contains game window specifics like height and width
-     * @param world contains all the entities of the game like player and bullets
+     * {@inheritDoc}
      */
     @Override
     public void stop(GameData gameData, World world) {

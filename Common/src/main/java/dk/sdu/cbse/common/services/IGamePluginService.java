@@ -5,20 +5,29 @@ import dk.sdu.cbse.common.data.World;
 
 public interface IGamePluginService {
     /**
-     * Initializes and starts the game plugin, setting up necessary entities
-     * and configurations in the provided game world using the current game data.
+     * Pre-conditions: The host container guarantees that gameData and world references
+     * are non-null. The gameData must possess initialized window dimensions (displayWidth
+     * and displayHeight) to allow valid coordinate calculation.
      *
-     * @param gameData the current state of the game, including input, display dimensions, and other game-related data
-     * @param world the game world containing all entities and their associated data
+     * Post-conditions: The providing module guarantees that initial domain-specific entities
+     * are successfully instantiated, populated with valid structural polygon arrays, and
+     * registered within the shared world repository.
+     *
+     * @param gameData the current state of the game
+     * @param world the game world containing all entities
      */
     void start(GameData gameData, World world);
 
     /**
-     * Stops the game plugin, performing necessary cleanup of entities
-     * and configurations in the provided game world using the current game data.
+     * Pre-conditions: The host container guarantees that gameData and world references
+     * are non-null.
      *
-     * @param gameData the current state of the game, including input, display dimensions, and other game-related data
-     * @param world the game world containing all entities and their associated data
+     * Post-conditions: The providing module guarantees that all domain-specific entities
+     * previously instantiated by this plugin are completely removed from the shared world
+     * repository.
+     *
+     * @param gameData the current state of the game
+     * @param world the game world containing all entities
      */
     void stop(GameData gameData, World world);
 }

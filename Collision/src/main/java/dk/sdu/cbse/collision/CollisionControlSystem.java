@@ -22,12 +22,7 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
     private final String url = "http://localhost:8080/score/add";
 
     /**
-     * Postconditions:
-     * Processes the game world to determine collisions between entities. If two entities
-     * are within a distance that is less than the sum of their radii, they are marked as hit.
-     * Precondition: game data and world need to be initialized and contain window dimensions and entities
-     * @param gameData Provides game-specific data, including display settings and input keys.
-     * @param world The game world containing the entities to be processed for collision detection.
+     * {@inheritDoc}
      */
     @Override
     public void process(GameData gameData, World world) {

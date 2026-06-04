@@ -12,11 +12,7 @@ public class PlayerPlugin implements IGamePluginService {
 
     private Entity player;
     /**
-     * Post-conditions: a player exists after being called
-     * Initializes the player plugin by creating and adding a player entity to the game world.
-     * Pre-conditions: window bounds need to be defined to exist inside and world to be added to list of entities
-     * @param gameData the game data containing information about the game state, such as display dimensions.
-     * @param world the game world to which the player entity will be added.
+     * {@inheritDoc}
      */
     @Override
     public void start(GameData gameData, World world) {
@@ -40,10 +36,7 @@ public class PlayerPlugin implements IGamePluginService {
     }
 
     /**
-     * Stops the player plugin by removing the player entity from the game world.
-     *
-     * @param gameData the game data containing information about the current game state.
-     * @param world the game world from which the player entity will be removed.
+     * {@inheritDoc}
      */
     @Override
     public void stop(GameData gameData, World world) {

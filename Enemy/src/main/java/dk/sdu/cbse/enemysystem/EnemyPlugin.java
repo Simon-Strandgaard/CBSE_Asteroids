@@ -11,11 +11,9 @@ import org.springframework.stereotype.Component;
 public class EnemyPlugin implements IGamePluginService {
     private Entity enemy;
 
-    /// This method initializes the Enemy-entity and adds it to the world entities.
-    /// Precondition: gameData and world cannot be null as it has to be in a state the enemy can spawn in.
-    /// Postcondition: the enemy entity is initialized with positions and added to the world object.
-    /// @param gameData object contains all relevant game window specs like window size
-    /// @param world contains all the entities in the game.
+    /**
+     * {@inheritDoc}
+    */
     @Override
     public void start(GameData gameData, World world) {
         enemy = createEnemy(gameData);
@@ -35,11 +33,7 @@ public class EnemyPlugin implements IGamePluginService {
     }
 
     /**
-     * This method removes enemy entities in the world entity list.
-     * precondition: world cannot be null as it would throw null pointer exception
-     * postcondition: enemy ship is permanently removed from the world after.
-     * @param gameData object contains all relevant game window specs like window size
-     * @param world contains all the entities in the game.
+     * {@inheritDoc}
      */
     @Override
     public void stop(GameData gameData, World world) {

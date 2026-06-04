@@ -6,11 +6,18 @@ import dk.sdu.cbse.common.data.World;
 public interface IEntityProcessingService {
 
     /**
-     * Processes game logic for the entities in the game world using the provided game data.
-     * Implementations of this method should define specific entity behaviors or state updates.
+     * Pre-conditions: The caller guarantees that gameData contains non-null configurations,
+     * including GameKeys state tracking and valid screen bounds. The world reference must
+     * provide the complete global entity repository.
      *
-     * @param gameData the current state of the game, including input, display dimensions, and other game-related data
-     * @param world the game world containing all entities and their associated data
+     * Post-conditions: The service provider promises to iterate through and transform only
+     * the spatial fields (x, y, rotation) of the specific entity subtypes it is contractually
+     * authorized to manage. The processor guarantees it will return execution control to the
+     * main loop thread without causing deadlocks and without unlawfully mutating the internal
+     * fields of unrelated foreign domain entities.
+     *
+     * @param gameData the current state of the game
+     * @param world the game world containing all entities
      */
     void process(GameData gameData, World world);
 }

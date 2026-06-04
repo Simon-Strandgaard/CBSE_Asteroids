@@ -17,11 +17,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
     private List<BulletSPI> bulletSPIS;
 
     /**
-     * This method gets called every tick for the enemy to move and shoot
-     * precondition: gameData and world cannot be null since no game and not entity would exist
-     * postcondition: enemy has maybe moved and maybe shot and added bullet to entities.
-     * @param gameData contains the dimensions and coordinates for the game window
-     * @param world contains a list of entities which is needed for bullet to be shot
+     * {@inheritDoc}
      */
     @Override
     public void process(GameData gameData, World world) {
